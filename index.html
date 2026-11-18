@@ -104,7 +104,7 @@ async function dec(env,pw){const km=await crypto.subtle.importKey('raw',new Text
 const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:u8(env.s),iterations:env.n,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
 const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u8(env.i)},k,u8(env.c));return JSON.parse(new TextDecoder().decode(pt))}
 const get=async n=>{try{const r=await fetch(n+'?v='+Date.now());return r.ok?await r.json():null}catch(e){return null}};
-const TABS=[['ov','Overview'],['ba','Brand Analytics'],['amc','AMC']];
+const TABS=[['ov','Overview'],['ba','Brand Analytics'],['amc','AMC'],['tg','Target']];
 let ALL=null;
 function show(id){document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
 const m=document.getElementById('main');m.innerHTML='';
@@ -118,6 +118,7 @@ if(!(window.crypto&&crypto.subtle)){e.textContent='Trình duyệt không hỗ tr
 e.textContent='Đang giải mã…';
 const ed=await get('data.enc');
 try{ALL=ed?await dec(ed,pw):null}catch(x){ALL=null}
+if(ALL)window.SEN_TARGETS=ALL.targets||{};
 if(!ALL){e.textContent='Sai mật khẩu hoặc dữ liệu chưa sẵn sàng.';return}
 document.getElementById('gate').hidden=true;document.getElementById('app').hidden=false;
 document.getElementById('sub').textContent='';
