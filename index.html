@@ -119,6 +119,7 @@ e.textContent='Đang giải mã…';
 const ed=await get('data.enc');
 try{ALL=ed?await dec(ed,pw):null}catch(x){ALL=null}
 window._PW=pw;
+try{const e2=await get('data-startday.enc');window.SEN_STARTDAY=e2?await dec(e2,pw):{docs:{}}}catch(x){window.SEN_STARTDAY={docs:{}}}
 if(ALL)window.SEN_TARGETS=ALL.targets||{};
 if(!ALL){e.textContent='Sai mật khẩu hoặc dữ liệu chưa sẵn sàng.';return}
 document.getElementById('gate').hidden=true;document.getElementById('app').hidden=false;
