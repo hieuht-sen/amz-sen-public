@@ -91,7 +91,7 @@ const fmt=spec=>{const m=/^(\$)?(,)?(?:\.(\d))?f?$/.exec(spec)||[];const cur=m[1
 return v=>{if(v==null||isNaN(v))return'NaN';const neg=v<0;let a=Math.abs(+v);let s=dp==null?String(a):a.toFixed(dp);if(cm){const p=s.split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');s=p.join('.')}return(neg?'−':'')+(cur?'$':'')+s}};
 const acc=(a,f)=>f?a.map((x,i)=>f(x,i)):a;
 window.d3={format:fmt,sum:(a,f)=>acc(a,f).reduce((p,c)=>p+(+c||0),0),max:(a,f)=>{const v=acc(a,f).filter(x=>x!=null&&!isNaN(x));return v.length?Math.max(...v):undefined},min:(a,f)=>{const v=acc(a,f).filter(x=>x!=null&&!isNaN(x));return v.length?Math.min(...v):undefined}};
-window.dash={colors:['#0c7c86','#c2741f','#6a5acd','#1d7f4e'],
+window.dash={colors:['#0c7c86','#c2741f','#6a5acd','#1d7f4e','#c2255c','#1c7ed6','#e8590c','#7048e8'],setLink:()=>{},__reset:()=>{CB.length=0;CALC.length=0},
 data:id=>DS[id]?{status:'ok',data:DS[id]}:{status:'loading',data:[]},
 onData:fn=>{CB.push(fn)},
 calc:(id,o)=>{CALC.push([id,o])},
@@ -111,7 +111,7 @@ const m=document.getElementById('main');m.innerHTML='';
 const src=ALL&&ALL[id];
 if(!src){m.innerHTML='<div class="pend">Mục này chưa có dữ liệu.</div>';return}
 if(src.pending){m.innerHTML='<div class="pend">'+src.pending+'</div>';return}
-m.innerHTML=src.html;m.querySelectorAll('script').forEach(o=>{const n=document.createElement('script');n.textContent=o.textContent;o.replaceWith(n)});
+if(window.dash&&dash.__reset)dash.__reset();m.innerHTML=src.html;m.querySelectorAll('script').forEach(o=>{const n=document.createElement('script');n.textContent=o.textContent;o.replaceWith(n)});
 if(src.data)dash.__load(src.data)}
 async function open_(){const e=document.getElementById('ge');e.textContent='';const pw=document.getElementById('gp').value;
 if(!(window.crypto&&crypto.subtle)){e.textContent='Trình duyệt không hỗ trợ giải mã. Hãy mở bằng Chrome, Edge hoặc Safari qua https.';return}
