@@ -106,18 +106,19 @@ const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u8(env.i)},k,u8(env.c));
 const get=async n=>{try{const r=await fetch(n+'?v='+Date.now());return r.ok?await r.json():null}catch(e){return null}};
 const TABS=[['ov','Overview'],['ba','Brand Analytics'],['amc','AMC'],['tg','Target']];
 let ALL=null;
-function show(id){document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
+async function show(id){if(id==='ba'&&!window._BA){try{const e=await get('data-ba.enc');window._BA=e?await dec(e,window._PW):{}}catch(x){window._BA={}}}document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
 const m=document.getElementById('main');m.innerHTML='';
 const src=ALL&&ALL[id];
 if(!src){m.innerHTML='<div class="pend">Mục này chưa có dữ liệu.</div>';return}
 if(src.pending){m.innerHTML='<div class="pend">'+src.pending+'</div>';return}
 if(window.dash&&dash.__reset)dash.__reset();m.innerHTML=src.html;m.querySelectorAll('script').forEach(o=>{const n=document.createElement('script');n.textContent=o.textContent;o.replaceWith(n)});
-if(src.data)dash.__load(src.data)}
+if(src.data)dash.__load(src.data);else if(id==='ba'&&window._BA)dash.__load(window._BA)}
 async function open_(){const e=document.getElementById('ge');e.textContent='';const pw=document.getElementById('gp').value;
 if(!(window.crypto&&crypto.subtle)){e.textContent='Trình duyệt không hỗ trợ giải mã. Hãy mở bằng Chrome, Edge hoặc Safari qua https.';return}
 e.textContent='Đang giải mã…';
 const ed=await get('data.enc');
 try{ALL=ed?await dec(ed,pw):null}catch(x){ALL=null}
+window._PW=pw;
 if(ALL)window.SEN_TARGETS=ALL.targets||{};
 if(!ALL){e.textContent='Sai mật khẩu hoặc dữ liệu chưa sẵn sàng.';return}
 document.getElementById('gate').hidden=true;document.getElementById('app').hidden=false;
