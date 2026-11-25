@@ -1,12 +1,12 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>[AMZ] SEN | Báo cáo dự án</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
-<style>:root{--color-bg:#f3f6f7;--color-panel:#fff;--color-fg:#13202b;--color-fg-muted:#5a6a77;--color-border-line:#dce3e8;--color-ok:#1d7f4e;--color-warn:#c2741f;--color-bad:#c23b2e;
+<style>:root{--color-bg:#f6faf7;--color-panel:#fff;--color-fg:#1e2d26;--color-fg-muted:#667a70;--color-border-line:#d5e3da;--color-ok:#2f8f63;--color-warn:#d99a2b;--color-bad:#d64545;
 --cds-font-size-body:14px;--cds-font-size-caption:12px;--cds-font-size-heading:17px;--cds-font-size-title:24px;--cds-font-weight-medium:600;
 --cds-gap-xs:4px;--cds-gap-sm:8px;--cds-gap-md:12px;--cds-gap-lg:20px;--cds-pad-xs:4px;--cds-pad-sm:8px;--cds-pad-md:14px;--cds-pad-lg:20px;--cds-radius:12px;
---cds-chart-grid:#e3e9ed;--cds-chart-muted:#9aa8b3;--cds-chart-reference:#13202b;
---rep-accent:#0c7c86;--rep-accent-soft:#d9eff1;--rep-amber:#c2741f;--rep-good:#1d7f4e;--rep-bad:#c23b2e;--rep-warn:#a87310;
---rep-good-bg:#e0f3e8;--rep-bad-bg:#fadeda;--rep-warn-bg:#f8ebcb;--rep-soft:#eaf0f3}
+--cds-chart-grid:#e4ede7;--cds-chart-muted:#9aaca2;--cds-chart-reference:#1e2d26;
+--rep-accent:#2f8f63;--rep-accent-soft:#eaf6ef;--rep-amber:#d99a2b;--rep-good:#2f8f63;--rep-bad:#d64545;--rep-warn:#a87310;
+--rep-good-bg:#eaf6ef;--rep-bad-bg:#fbe3e3;--rep-warn-bg:#fbf0dc;--rep-soft:#eaf6ef}
 body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:14px}
 /* ---- shared "rep" design system, matches the live Claude artifact dashboards ---- */
 .rep *{box-sizing:border-box}
@@ -76,9 +76,9 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:'Plus
 .rep .cmpnote{font-size:12.5px;color:var(--color-fg);background:var(--rep-soft);border-radius:8px;padding:7px 11px;margin:0 0 14px;line-height:1.5}
 @media (max-width:760px){.rep .rep-grid2{grid-template-columns:1fr}.rep .rep-filters{position:static}}
 
-*{box-sizing:border-box}.gate{max-width:360px;margin:12vh auto;background:#13202b;color:#fff;border-radius:14px;padding:26px;text-align:center}.gate h1{font-size:18px;margin:6px 0 14px}.gate input{width:100%;padding:10px 12px;border-radius:8px;border:0;font-size:15px}.gate button{width:100%;margin-top:10px;padding:10px;border:0;border-radius:8px;background:#0c7c86;color:#fff;font-weight:700;font-size:15px;cursor:pointer}.gate .e{color:#ff9d93;font-size:13px;min-height:18px;margin-top:8px}
+*{box-sizing:border-box}.gate{max-width:360px;margin:12vh auto;background:#13202b;color:#fff;border-radius:14px;padding:26px;text-align:center}.gate h1{font-size:18px;margin:6px 0 14px}.gate input{width:100%;padding:10px 12px;border-radius:8px;border:0;font-size:15px}.gate button{width:100%;margin-top:10px;padding:10px;border:0;border-radius:8px;background:#2f8f63;color:#fff;font-weight:700;font-size:15px;cursor:pointer}.gate .e{color:#ff9d93;font-size:13px;min-height:18px;margin-top:8px}
 header.top{padding:18px 28px 0}header.top h1{margin:0;font-size:22px}header.top .s{color:var(--color-fg-muted);font-size:12.5px;margin-top:2px}
-nav.tabs{display:flex;gap:6px;padding:14px 28px 0;border-bottom:1px solid var(--color-border-line);flex-wrap:wrap}nav.tabs button{font:inherit;font-weight:600;padding:9px 16px;border:1px solid transparent;border-bottom:0;background:none;color:var(--color-fg-muted);border-radius:9px 9px 0 0;cursor:pointer}nav.tabs button.on{background:#fff;color:#0c7c86;border-color:var(--color-border-line);margin-bottom:-1px}
+nav.tabs{display:flex;gap:6px;padding:14px 28px 0;border-bottom:1px solid var(--color-border-line);flex-wrap:wrap}nav.tabs button{font:inherit;font-weight:600;padding:9px 16px;border:1px solid transparent;border-bottom:0;background:none;color:var(--color-fg-muted);border-radius:9px 9px 0 0;cursor:pointer}nav.tabs button.on{background:#fff;color:#2f8f63;border-color:var(--color-border-line);margin-bottom:-1px}
 main{padding:20px 28px 40px}.pend{background:#fff;border:1px dashed var(--color-border-line);border-radius:12px;padding:22px;color:var(--color-fg-muted);max-width:720px}
 </style></head><body>
 <div class="gate" id="gate"><div style="font-size:30px">🔒</div><h1>[AMZ] SEN | Báo cáo dự án</h1><input id="gp" type="password" placeholder="Nhập mật khẩu…" autocomplete="off"><button id="gb">Mở báo cáo</button><div class="e" id="ge"></div></div>
@@ -91,7 +91,7 @@ const fmt=spec=>{const m=/^(\$)?(,)?(?:\.(\d))?f?$/.exec(spec)||[];const cur=m[1
 return v=>{if(v==null||isNaN(v))return'NaN';const neg=v<0;let a=Math.abs(+v);let s=dp==null?String(a):a.toFixed(dp);if(cm){const p=s.split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');s=p.join('.')}return(neg?'−':'')+(cur?'$':'')+s}};
 const acc=(a,f)=>f?a.map((x,i)=>f(x,i)):a;
 window.d3={format:fmt,sum:(a,f)=>acc(a,f).reduce((p,c)=>p+(+c||0),0),max:(a,f)=>{const v=acc(a,f).filter(x=>x!=null&&!isNaN(x));return v.length?Math.max(...v):undefined},min:(a,f)=>{const v=acc(a,f).filter(x=>x!=null&&!isNaN(x));return v.length?Math.min(...v):undefined}};
-window.dash={colors:['#0c7c86','#c2741f','#6a5acd','#1d7f4e','#c2255c','#1c7ed6','#e8590c','#7048e8'],setLink:()=>{},__reset:()=>{CB.length=0;CALC.length=0},
+window.dash={colors:['#2f8f63','#c2741f','#6a5acd','#1d7f4e','#c2255c','#1c7ed6','#e8590c','#7048e8'],setLink:()=>{},__reset:()=>{CB.length=0;CALC.length=0},
 data:id=>DS[id]?{status:'ok',data:DS[id]}:{status:'loading',data:[]},
 onData:fn=>{CB.push(fn)},
 calc:(id,o)=>{CALC.push([id,o])},
