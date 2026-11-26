@@ -102,12 +102,12 @@ __load:function(data){Object.assign(DS,data);CALC.forEach(([id,o])=>{DS[id]=o.fn
 const u8=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function dec(env,pw){const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
 const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:u8(env.s),iterations:env.n,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
-const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u8(env.i)},k,u8(env.c));return JSON.parse(new TextDecoder().decode(pt))}
+const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u8(env.i)},k,u8(env.c));if(env.z){return JSON.parse(await new Response(new Blob([pt]).stream().pipeThrough(new DecompressionStream('gzip'))).text())}return JSON.parse(new TextDecoder().decode(pt))}
 const get=async n=>{try{const r=await fetch(n+'?v='+Date.now());return r.ok?await r.json():null}catch(e){return null}};
 const TABS=[['ov','Overview'],['ba','Brand Analytics'],['st','Search Term'],['amc','AMC'],['tg','Target']];
 let ALL=null;
 async function show(id){if(id==='ba'&&!window._BA){try{const e=await get('data-ba.enc');window._BA=e?await dec(e,window._PW):{}}catch(x){window._BA={}}}
-if(id==='st'&&!window._ST){try{const e=await get('data-st.enc');window._ST=e?await dec(e,window._PW):null}catch(x){window._ST=null}}
+if(id==='st'&&!window._ST){document.getElementById('main').innerHTML='<div class="pend">Đang tải dữ liệu Search Term…</div>';try{const e=await get('data-st.enc');window._ST=e?await dec(e,window._PW):null}catch(x){window._ST=null}}
 document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
 const m=document.getElementById('main');m.innerHTML='';
 const src=id==='st'?(window._ST?{html:window._ST.html,_st:true}:null):(ALL&&ALL[id]);
