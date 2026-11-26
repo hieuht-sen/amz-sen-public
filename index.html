@@ -104,11 +104,14 @@ async function dec(env,pw){const km=await crypto.subtle.importKey('raw',new Text
 const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:u8(env.s),iterations:env.n,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
 const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u8(env.i)},k,u8(env.c));return JSON.parse(new TextDecoder().decode(pt))}
 const get=async n=>{try{const r=await fetch(n+'?v='+Date.now());return r.ok?await r.json():null}catch(e){return null}};
-const TABS=[['ov','Overview'],['ba','Brand Analytics'],['amc','AMC'],['tg','Target']];
+const TABS=[['ov','Overview'],['ba','Brand Analytics'],['st','Search Term'],['amc','AMC'],['tg','Target']];
 let ALL=null;
-async function show(id){if(id==='ba'&&!window._BA){try{const e=await get('data-ba.enc');window._BA=e?await dec(e,window._PW):{}}catch(x){window._BA={}}}document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
+async function show(id){if(id==='ba'&&!window._BA){try{const e=await get('data-ba.enc');window._BA=e?await dec(e,window._PW):{}}catch(x){window._BA={}}}
+if(id==='st'&&!window._ST){try{const e=await get('data-st.enc');window._ST=e?await dec(e,window._PW):null}catch(x){window._ST=null}}
+document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
 const m=document.getElementById('main');m.innerHTML='';
-const src=ALL&&ALL[id];
+const src=id==='st'?(window._ST?{html:window._ST.html,_st:true}:null):(ALL&&ALL[id]);
+if(src&&src._st)window.ST_DATA=window._ST.data;
 if(!src){m.innerHTML='<div class="pend">Mục này chưa có dữ liệu.</div>';return}
 if(src.pending){m.innerHTML='<div class="pend">'+src.pending+'</div>';return}
 if(window.dash&&dash.__reset)dash.__reset();m.innerHTML=src.html;m.querySelectorAll('script').forEach(o=>{const n=document.createElement('script');n.textContent=o.textContent;o.replaceWith(n)});
